@@ -20,6 +20,7 @@
         android:textStyle="bold" />
 
     <!-- You can include buttons for navigation -->
+
     <Button
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
@@ -44,6 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Reset"
+        android:text="ResetButton"
         android:visibility="gone" />
 </FrameLayout>

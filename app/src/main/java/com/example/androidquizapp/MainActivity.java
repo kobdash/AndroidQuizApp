@@ -9,6 +9,10 @@ import android.widget.RadioGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     private FrameLayout frameLayout;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Load the first question layout
         loadQuestionLayout(R.layout.question1);
+
+
     }
 
     private void loadQuestionLayout(int layoutResId) {
@@ -40,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
                     calculateAndShowScore();
                 }
             });
+            // Initialize the Reset button
+            Button resetButton = findViewById(R.id.resetButton);
+            resetButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Reset the quiz entirely
+                    resetQuiz();
+                }
+            });
+
+
+
         } else {
             // This is not the last question, show "Next" button
             Button nextButton = findViewById(R.id.nextButton);
@@ -54,9 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleAnswer() {
-        // Depending on the current question, handle the answer.
-        // You should check user selections and update the score accordingly.
-
+        // Handle answers for each question (cases 1 to 5)
         switch (currentQuestion) {
             case 1:
                 // Handle the answer for question 1 with checkboxes
@@ -87,12 +103,53 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
-            // Add cases for questions 3, 4, and any additional questions.
+            case 3:
+                // Handle the answer for question 3 with radio buttons
+                RadioGroup radioGroup3 = findViewById(R.id.radioGroup);
+                RadioButton selectedRadioButton3 = findViewById(radioGroup3.getCheckedRadioButtonId());
+
+                if (selectedRadioButton3 != null) {
+                    String selectedOption = selectedRadioButton3.getText().toString();
+                    if (selectedOption.equals("2005")) {
+                        score += 4;
+                    }
+                }
+                break;
+
+            case 4:
+                // Handle the answer for question 4 with checkboxes
+                CheckBox optionA4 = findViewById(R.id.optionA);
+                CheckBox optionB4 = findViewById(R.id.optionB);
+                CheckBox optionC4 = findViewById(R.id.optionC);
+
+                boolean isOptionASelected4 = optionA4.isChecked();
+                boolean isOptionBSelected4 = optionB4.isChecked();
+                boolean isOptionCSelected4 = optionC4.isChecked();
+
+                // Check if Option B and Option C are selected (correct answer)
+                if (!isOptionASelected4 && isOptionBSelected4 && isOptionCSelected4) {
+                    score += 4;
+                }
+                break;
+
+            case 5:
+                // Handle the answer for question 5 with radio buttons
+                RadioGroup radioGroup5 = findViewById(R.id.radioGroup);
+                RadioButton selectedRadioButton5 = findViewById(radioGroup5.getCheckedRadioButtonId());
+
+                if (selectedRadioButton5 != null) {
+                    String selectedOption = selectedRadioButton5.getText().toString();
+                    if (selectedOption.equals("4")) {
+                        score += 4;
+                    }
+                }
+                break;
+
+
 
             default:
                 break;
         }
-
         // Load the next question
         currentQuestion++;
         String nextQuestionLayout = "question" + currentQuestion;
@@ -104,5 +161,14 @@ public class MainActivity extends AppCompatActivity {
         // Calculate the total score and show it in a Toast message
         String message = "Your score: " + score + " out of 20";
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void resetQuiz() {
+        // Reset the quiz entirely
+        currentQuestion = 1;
+        score = 0;
+
+        // Load the first question layout
+        loadQuestionLayout(R.layout.question1);
     }
 }

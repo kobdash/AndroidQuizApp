@@ -50,4 +50,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:text="Submit" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Reset" />
 </LinearLayout>
